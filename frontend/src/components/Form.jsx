@@ -16,20 +16,21 @@ function Form({route, method}){
 
     const handleSubmit = async (e) => {
 
+        setLoading(true);
+        e.preventDefault()
         if (typeof window !== 'undefined') {
             // Access localStorage here
             localStorage.setItem(ACCESS_TOKEN, response.data.access);
+            localStorage.setItem(REFRESH_TOKEN, response.data.refresh);
         }
 
-        setLoading(true);
-        e.preventDefault()
         try {
             const response = await api.post(route, {username, password})
             if (method === 'login'){
                 localStorage.setItem(ACCESS_TOKEN, response.data.access);
                 localStorage.setItem(REFRESH_TOKEN, response.data.refresh);
-                alert("logged in")
-                // navigate('/')
+                // alert("logged in")
+                navigate('/')
             } else {
                 navigate('/login')
             }
@@ -56,8 +57,8 @@ function Form({route, method}){
             onChange={(e) => setPassword(e.target.value)}
             placeholder="Password"
         />
-        {loading && <LoadingIndicator/>}
-        <button className="form-button" type="submit">
+        {/* {loading && <LoadingIndicator/>} */}
+        <button className="form-button" type="Submit">
             {name}
         </button>
     </form>
