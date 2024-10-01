@@ -10,7 +10,6 @@ function Logout() {
   localStorage.clear()
   return <Navigate to="/login" />
 }
-
 function RegisterAndLogout() {
   localStorage.clear()
   return <Register />
